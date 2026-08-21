@@ -1,0 +1,16 @@
+node_modules/
+dashboard/node_modules/
+dashboard/dist/
+dist/
+artifacts/
+cache/
+typechain-types/
+coverage/
+.env
+.env.*
+!.env.example
+runs/
+*.log
+*.tsbuildinfo
+dashboard/vite.config.js
+dashboard/vite.config.d.ts

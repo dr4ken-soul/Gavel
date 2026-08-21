@@ -1,0 +1,4 @@
+import { FadeIn } from '../ui/FadeIn'
+
+/** Displays the live demo proof points without inflating the recorded numbers. */
+export function Metrics(): JSX.Element { return <section className="relative border-t border-[var(--border-subtle)] bg-[var(--bg-primary)] py-20 md:py-28"><div className="mx-auto grid max-w-[1400px] grid-cols-2 gap-10 px-4 md:gap-12 md:px-8 lg:grid-cols-4">{[['2', 'demo jobs settled'], ['1.0 OKB', 'escrowed across two runs'], ['6.4s', 'median ruling'], ['100%', 'rubric commitments honoured']].map(([value, label], index) => <FadeIn key={label} delay={index * 0.2}><p className="font-mono text-4xl leading-none tabular-nums text-[var(--text-primary)] md:text-5xl">{value}</p><p className="mt-3 font-body text-sm text-[var(--text-muted)]">{label}</p></FadeIn>)}</div></section> }

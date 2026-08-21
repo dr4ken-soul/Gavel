@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0c0e12;
+  --bg-secondary: #11141a;
+  --bg-surface: #171b22;
+  --bg-elevated: #1e232c;
+  --accent: #d9a441;
+  --accent-hover: #e6b85c;
+  --accent-glow: rgba(217, 164, 65, 0.12);
+  --text-primary: #e7eaf0;
+  --text-secondary: #8b93a3;
+  --text-muted: #4a5160;
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-default: rgba(255, 255, 255, 0.09);
+  --verdict-approve: #3ecf8e;
+  --verdict-refund: #ef6a5a;
+  --success: #3ecf8e;
+  --error: #ef6a5a;
+}
+
+html { scroll-behavior: smooth; scrollbar-width: none; }
+body { margin: 0; min-width: 320px; background: var(--bg-primary); color: var(--text-primary); font-family: 'IBM Plex Sans', sans-serif; }
+::-webkit-scrollbar { display: none; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.label { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; line-height: 1; letter-spacing: 0.15em; text-transform: uppercase; }
+.font-display { font-variation-settings: 'wght' 500; }
+.grain-overlay { background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E"); mix-blend-mode: screen; }
+.technical-grid { background-image: linear-gradient(rgba(231, 234, 240, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(231, 234, 240, 0.04) 1px, transparent 1px); background-size: 72px 72px; mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 78%); }
+.animate-ticker { animation: ticker 30s linear infinite; }
+.t-approve { color: var(--verdict-approve); }
+.t-refund { color: var(--verdict-refund); }
+.animate-pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
+.skeleton { background: linear-gradient(90deg, var(--bg-surface), var(--bg-elevated), var(--bg-surface)); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
+.cell { position: relative; transition: background-color 220ms ease, transform 220ms ease; }
+.cell::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.03; background-image: radial-gradient(var(--text-primary) 0.5px, transparent 0.5px); background-size: 4px 4px; }
+.cell:hover { background-color: var(--bg-elevated); transform: translateY(-2px); }
+.toast { animation: toast-in 220ms ease both; }
+@supports (animation-timeline: scroll()) { @keyframes gavelWeight { from { font-variation-settings: 'wght' 560; } to { font-variation-settings: 'wght' 340; } } .hero-headline { animation: gavelWeight linear both; animation-timeline: scroll(); animation-range: 0vh 60vh; } }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes pulse-soft { 0%, 100% { opacity: .5; } 50% { opacity: 1; } }
+@keyframes toast-in { from { opacity: 0; filter: blur(8px); transform: translate(-50%, -8px); } to { opacity: 1; filter: blur(0); transform: translate(-50%, 0); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 1ms !important; } }
