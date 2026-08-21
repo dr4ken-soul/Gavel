@@ -67,6 +67,7 @@ async function ruleJob(jobId: bigint, rubric: string[], salt: string, artifact: 
   const relayer = signerFromEnv('RELAYER_KEY')
   const tx = await gavel(relayer).rule(jobId, ethers.toUtf8Bytes(JSON.stringify(rubric)), salt, verdict.pass, split.v, split.r, split.s)
   const receipt = await tx.wait()
+  console.log(`receipt ${transactionUrl(receipt.hash)}`)
   await mkdir(runFolder, { recursive: true })
   await Promise.all([
     writeFile(join(runFolder, 'rubric.json'), JSON.stringify({ rubric, salt }, null, 2)),
