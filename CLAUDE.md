@@ -42,7 +42,7 @@ Post-hackathon: staked judge committee, receipt based reputation scores, marketp
 | Icons | Lucide React |
 | Backgrounds | Waves canvas + GrainGradient, coded, no video assets |
 
-X Layer Testnet facts: rpc https://testrpc.xlayer.tech, chain id 195, explorer https://www.oklink.com/xlayer-test, gas token OKB, faucet https://www.okx.com/xlayer/faucet, up to 0.2 testnet OKB per claim. Mainnet is chain id 196 with rpc https://rpc.xlayer.tech.
+X Layer Testnet facts: rpc https://testrpc.xlayer.tech, chain id 1952, explorer https://www.oklink.com/xlayer-test, gas token OKB, faucet https://www.okx.com/xlayer/faucet, up to 0.2 testnet OKB per claim. Mainnet is chain id 196 with rpc https://rpc.xlayer.tech.
 
 ---
 

@@ -36,7 +36,7 @@ npx hardhat compile
 npx hardhat run scripts/deploy.ts --network xlayer_testnet
 ```
 
-Set `CONTRACT_ADDRESS` to the confirmed deployment and set `JUDGE_KEY`, `RELAYER_KEY`, `BUYER_KEY` and `SELLER_KEY`. Set `GROQ_API_KEY` for model-backed rulings. The default model is `openai/gpt-oss-120b` through `https://api.groq.com/openai/v1`. The X Layer Testnet explorer is [OKLink](https://www.oklink.com/xlayer-test). The network uses chain id 195 and OKB as its gas token.
+Set `CONTRACT_ADDRESS` to the confirmed deployment and set `JUDGE_KEY`, `RELAYER_KEY`, `BUYER_KEY` and `SELLER_KEY`. Set `GROQ_API_KEY` for model-backed rulings. The default model is `openai/gpt-oss-120b` through `https://api.groq.com/openai/v1`. The X Layer Testnet explorer is [OKLink](https://www.oklink.com/xlayer-test). The network uses chain id 1952 and OKB as its gas token.
 
 Run the demo sequence after deployment:
 

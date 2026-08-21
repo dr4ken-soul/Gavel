@@ -16,7 +16,7 @@ export const ABI = [
 
 export const RPC_URL = process.env.RPC_URL ?? 'https://testrpc.xlayer.tech'
 export const EXPLORER_URL = 'https://www.oklink.com/xlayer-test'
-export const provider = new ethers.JsonRpcProvider(RPC_URL, Number(process.env.CHAIN_ID ?? 195))
+export const provider = new ethers.JsonRpcProvider(RPC_URL, Number(process.env.CHAIN_ID ?? 1952))
 
 /** Returns a signer backed by a required environment variable. */
 export function signerFromEnv(name: string): ethers.Wallet {

@@ -2,7 +2,7 @@ import { defineChain } from 'viem'
 import { createConfig, http, injected } from 'wagmi'
 
 export const xLayerTestnet = defineChain({
-  id: 195,
+  id: 1952,
   name: 'X Layer Testnet',
   nativeCurrency: { name: 'OKB', symbol: 'OKB', decimals: 18 },
   rpcUrls: { default: { http: ['https://testrpc.xlayer.tech'] } },

@@ -404,7 +404,7 @@ CTA intent audit: Launch App is the only launch intent label and appears in nav,
 
 ## Wallet Interaction Spec, mandatory Step 13 and 14 copy in
 
-**Stack:** wagmi plus viem. X Layer Testnet defined as a custom chain object, id 195, native currency OKB 18 decimals, rpc https://testrpc.xlayer.tech, explorer https://www.oklink.com/xlayer-test. Connectors: injected with flag detect for OKX Wallet and MetaMask.
+**Stack:** wagmi plus viem. X Layer Testnet defined as a custom chain object, id 1952, native currency OKB 18 decimals, rpc https://testrpc.xlayer.tech, explorer https://www.oklink.com/xlayer-test. Connectors: injected with flag detect for OKX Wallet and MetaMask.
 
 **Connection modal, WalletConnectModal.tsx:** no button anywhere calls connect directly. Nav and hero entry points open the modal. Modal states: explaining, connecting with spinner that blocks the close button, success with confirmation then auto route to /app, error with the rejection reason and a retry button. The modal holds all wagmi state, the parent holds one boolean.
 

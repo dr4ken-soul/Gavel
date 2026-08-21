@@ -83,7 +83,7 @@ Built for the Build X Series AI Season Hackathon on X Layer. Testnet during the 
 | Layer | Choice | Why |
 |---|---|---|
 | Contracts | Solidity 0.8.20, Hardhat | X Layer is EVM, standard tooling, oklink verification plugin |
-| Chain | X Layer Testnet, chain id 195 | Hackathon requirement, OKB gas, near zero fees |
+| Chain | X Layer Testnet, chain id 1952 | Hackathon requirement, OKB gas, near zero fees |
 | Frontend | React 18, Vite, TypeScript | Single page plus interior, static deploy, fastest path in one day. Chosen over Next.js because there is no SSR or SEO requirement and the SPA rewrite pattern is fully specified |
 | Wallet | wagmi + viem | Best EVM library pair, injected OKX Wallet and MetaMask |
 | Judge | Node 18, TypeScript, OpenAI compatible API | One small service, signs with ethers v6 |
@@ -91,7 +91,7 @@ Built for the Build X Series AI Season Hackathon on X Layer. Testnet during the 
 | Styling | Tailwind CSS v3 | Utility first, exact spec classes |
 | Motion | motion/react | Current package name, blur-in entrances |
 
-X Layer Testnet: rpc https://testrpc.xlayer.tech, chain id 195, explorer https://www.oklink.com/xlayer-test, faucet https://www.okx.com/xlayer/faucet. Fund three wallets from the faucet, buyer, seller, judge plus relayer.
+X Layer Testnet: rpc https://testrpc.xlayer.tech, chain id 1952, explorer https://www.oklink.com/xlayer-test, faucet https://www.okx.com/xlayer/faucet. Fund three wallets from the faucet, buyer, seller, judge plus relayer.
 
 ---
 
@@ -274,7 +274,7 @@ Demo rubric, five binary checks: exactly five headlines, brand name Somno appear
 
 ```
 RPC_URL=https://testrpc.xlayer.tech
-CHAIN_ID=195
+CHAIN_ID=1952
 CONTRACT_ADDRESS=
 JUDGE_KEY=
 RELAYER_KEY=
