@@ -1,17 +1,58 @@
 import { Activity, ArrowUpRight, CircleDollarSign, ExternalLink, RefreshCw } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useReadContract } from 'wagmi'
-import { contractAddress, explorerLink, gavelAbi, statusLabel } from '../lib/chain'
+import { contractAddress, gavelAbi } from '../lib/chain'
 import { FadeIn } from '../components/ui/FadeIn'
 
-const demoJobs = [{ id: 47, status: 'Paid', amount: '0.5 OKB', artifact: '0x84c1…7a03', verdict: 'approved' }, { id: 48, status: 'Refunded', amount: '0.5 OKB', artifact: '0xd113…4b8e', verdict: 'refunded' }]
+const demoJobs = [
+  { id: 1, status: 'Refunded', amount: '0.1 OKB', artifact: '0xe51e...66ca', verdict: 'refunded' },
+  { id: 2, status: 'Paid', amount: '0.05 OKB', artifact: '0xea4e...766e', verdict: 'approved' },
+]
+
+/** Returns the verdict colour class for a confirmed job. */
+function verdictClass(verdict: string): string { return verdict === 'approved' ? 'bg-[var(--verdict-approve)]' : 'bg-[var(--verdict-refund)]' }
 
 /** Renders the wallet-gated operational job board with confirmed data when available. */
 export function Jobs(): JSX.Element {
-  const { data, isLoading, isError, refetch } = useReadContract({ address: contractAddress || undefined, abi: gavelAbi, functionName: 'nextJobId', query: { enabled: Boolean(contractAddress), refetchInterval: 4000 } })
+  const { data, isLoading, isError, refetch } = useReadContract({
+    address: contractAddress || undefined,
+    abi: gavelAbi,
+    functionName: 'nextJobId',
+    query: { enabled: Boolean(contractAddress), refetchInterval: 4000 },
+  })
   const liveCount = data ? Number(data) - 1 : 0
-  return <main className="mx-auto max-w-[1400px] px-4 py-12 md:px-8"><FadeIn><div className="flex flex-wrap items-end justify-between gap-6"><div><p className="label text-[var(--accent)]">operations · confirmed state</p><h1 className="mt-3 font-display text-5xl tracking-tight text-[var(--text-primary)]">Jobs board</h1><p className="mt-3 max-w-[55ch] text-sm leading-relaxed text-[var(--text-secondary)]">Watch escrows move from commitment to receipt. Reads refresh every four seconds.</p></div><a href="https://github.com/dr4ken-soul/Gavel" target="_blank" rel="noreferrer" className="flex min-h-11 items-center gap-2 border border-[var(--border-default)] px-4 text-sm text-[var(--text-secondary)] hover:border-white/20 hover:text-[var(--text-primary)]">View on GitHub <ArrowUpRight size={15} /></a></div></FadeIn>
+
+  return <main className="mx-auto max-w-[1400px] px-4 py-12 md:px-8">
+    <FadeIn>
+      <div className="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <p className="label text-[var(--accent)]">operations - confirmed state</p>
+          <h1 className="mt-3 font-display text-5xl tracking-tight text-[var(--text-primary)]">Jobs board</h1>
+          <p className="mt-3 max-w-[55ch] text-sm leading-relaxed text-[var(--text-secondary)]">Watch escrows move from commitment to receipt. Reads refresh every four seconds.</p>
+        </div>
+        <a href="https://github.com/dr4ken-soul/Gavel" target="_blank" rel="noreferrer" className="flex min-h-11 items-center gap-2 border border-[var(--border-default)] px-4 text-sm text-[var(--text-secondary)] hover:border-white/20 hover:text-[var(--text-primary)]">View on GitHub <ArrowUpRight size={15} /></a>
+      </div>
+    </FadeIn>
+
     {isError && <div className="mt-8 flex items-center justify-between border border-[rgba(239,106,90,0.3)] bg-[var(--bg-surface)] p-4 text-sm text-[var(--verdict-refund)]">RPC unreachable, retry with the button or check the network<button onClick={() => refetch()} className="flex min-h-11 items-center gap-2 px-3"><RefreshCw size={15} />retry</button></div>}
-    <div className="mt-10 grid grid-cols-12 gap-px bg-[var(--border-default)]"><div className="cell col-span-12 row-span-2 bg-[var(--bg-surface)] p-6 lg:col-span-8"><p className="label text-[var(--text-muted)]">primary escrow rail</p><div className="mt-10 flex items-end justify-between gap-5"><div><p className="font-mono text-5xl tabular-nums text-[var(--text-primary)]">{isLoading ? '···' : liveCount || 2}</p><p className="mt-2 text-sm text-[var(--text-secondary)]">confirmed jobs indexed</p></div><Activity className="text-[var(--accent)]" size={30} /></div><p className="mt-10 max-w-[48ch] text-sm leading-relaxed text-[var(--text-secondary)]">A rubric hash sits beside the escrow before the seller starts. A ruling can only settle against that committed standard.</p></div><div className="cell col-span-6 bg-[var(--bg-surface)] p-6 lg:col-span-4"><p className="label text-[var(--text-muted)]">escrowed</p><p className="mt-8 font-mono text-2xl tabular-nums text-[var(--text-primary)]">1.0 OKB</p><p className="mt-2 text-xs text-[var(--text-muted)]">demo receipts</p></div><div className="cell col-span-6 bg-[var(--bg-surface)] p-6 lg:col-span-4"><p className="label text-[var(--text-muted)]">ruled</p><p className="mt-8 font-mono text-2xl tabular-nums text-[var(--text-primary)]">2</p><p className="mt-2 text-xs text-[var(--text-muted)]">approved and refunded</p></div><div className="cell col-span-12 row-span-3 bg-[var(--bg-surface)] p-6 lg:col-span-4"><p className="label text-[var(--text-muted)]">activity feed</p><div className="mt-8 space-y-5">{demoJobs.map((job) => <Link to={`/app/job/${job.id}`} key={job.id} className="flex items-start justify-between gap-4 border-b border-[var(--border-subtle)] pb-5"><span className={`mt-1 h-2 w-2 rounded-full ${job.verdict === 'approved' ? 'bg-[var(--verdict-approve)]' : 'bg-[var(--verdict-refund)]'}`} /><span className="flex-1"><span className="block font-mono text-sm text-[var(--text-primary)]">job {job.id} {job.verdict}</span><span className="mt-1 block text-xs text-[var(--text-muted)]">{job.amount} · receipt confirmed</span></span><ExternalLink size={15} className="text-[var(--text-muted)]" /></Link>)}</div></div></div>
-    <section className="mt-10"><div className="mb-4 flex items-center gap-3"><CircleDollarSign size={17} className="text-[var(--accent)]" /><h2 className="font-body text-lg font-medium text-[var(--text-primary)]">Recent jobs</h2></div><div className="grid gap-3 md:grid-cols-2">{demoJobs.map((job) => <Link key={job.id} to={`/app/job/${job.id}`} className="cell flex items-center justify-between bg-[var(--bg-surface)] p-5"><div><p className="font-mono text-sm text-[var(--text-primary)]">job {job.id}</p><p className="mt-2 text-xs text-[var(--text-secondary)]">{job.status} · {job.amount}</p></div><ArrowUpRight size={17} className={job.verdict === 'approved' ? 'text-[var(--verdict-approve)]' : 'text-[var(--verdict-refund)]'} /></Link>)}</div></section></main>
+
+    <div className="mt-10 grid grid-cols-12 gap-px bg-[var(--border-default)]">
+      <div className="cell col-span-12 row-span-2 bg-[var(--bg-surface)] p-6 lg:col-span-8">
+        <p className="label text-[var(--text-muted)]">primary escrow rail</p>
+        <div className="mt-10 flex items-end justify-between gap-5">
+          <div><p className="font-mono text-5xl tabular-nums text-[var(--text-primary)]">{isLoading ? '...' : liveCount || 2}</p><p className="mt-2 text-sm text-[var(--text-secondary)]">confirmed jobs indexed</p></div>
+          <Activity className="text-[var(--accent)]" size={30} />
+        </div>
+        <p className="mt-10 max-w-[48ch] text-sm leading-relaxed text-[var(--text-secondary)]">A rubric hash sits beside the escrow before the seller starts. A ruling can only settle against that committed standard.</p>
+      </div>
+      <div className="cell col-span-6 bg-[var(--bg-surface)] p-6 lg:col-span-4"><p className="label text-[var(--text-muted)]">escrowed</p><p className="mt-8 font-mono text-2xl tabular-nums text-[var(--text-primary)]">0.15 OKB</p><p className="mt-2 text-xs text-[var(--text-muted)]">confirmed demo receipts</p></div>
+      <div className="cell col-span-6 bg-[var(--bg-surface)] p-6 lg:col-span-4"><p className="label text-[var(--text-muted)]">ruled</p><p className="mt-8 font-mono text-2xl tabular-nums text-[var(--text-primary)]">2</p><p className="mt-2 text-xs text-[var(--text-muted)]">approved and refunded</p></div>
+      <div className="cell col-span-12 row-span-3 bg-[var(--bg-surface)] p-6 lg:col-span-4">
+        <p className="label text-[var(--text-muted)]">activity feed</p>
+        <div className="mt-8 space-y-5">{demoJobs.map((job) => <Link to={`/app/job/${job.id}`} key={job.id} className="flex items-start justify-between gap-4 border-b border-[var(--border-subtle)] pb-5"><span className={`mt-1 h-2 w-2 rounded-full ${verdictClass(job.verdict)}`} /><span className="flex-1"><span className="block font-mono text-sm text-[var(--text-primary)]">job {job.id} {job.verdict}</span><span className="mt-1 block text-xs text-[var(--text-muted)]">{job.amount} - receipt confirmed</span></span><ExternalLink size={15} className="text-[var(--text-muted)]" /></Link>)}</div>
+      </div>
+    </div>
+
+    <section className="mt-10"><div className="mb-4 flex items-center gap-3"><CircleDollarSign size={17} className="text-[var(--accent)]" /><h2 className="font-body text-lg font-medium text-[var(--text-primary)]">Recent jobs</h2></div><div className="grid gap-3 md:grid-cols-2">{demoJobs.map((job) => <Link key={job.id} to={`/app/job/${job.id}`} className="cell flex items-center justify-between bg-[var(--bg-surface)] p-5"><div><p className="font-mono text-sm text-[var(--text-primary)]">job {job.id}</p><p className="mt-2 text-xs text-[var(--text-secondary)]">{job.status} - {job.amount}</p></div><ArrowUpRight size={17} className={job.verdict === 'approved' ? 'text-[var(--verdict-approve)]' : 'text-[var(--verdict-refund)]'} /></Link>)}</div></section>
+  </main>
 }
