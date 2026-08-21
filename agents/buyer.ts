@@ -11,7 +11,7 @@ async function main(): Promise<void> {
   const salt = ethers.hexlify(ethers.randomBytes(32))
   const rubricText = JSON.stringify(rubric)
   const specHash = ethers.keccak256(ethers.toUtf8Bytes('five Somno landing headlines'))
-  const tx = await gavel(buyer).createJob(specHash, rubricCommit(rubricText, salt), Number(process.env.DELIVERY_WINDOW ?? 3600), Number(process.env.RULING_WINDOW ?? 3600), { value: ethers.parseEther(process.env.ESCROW_AMOUNT ?? '0.5') })
+  const tx = await gavel(buyer).createJob(specHash, rubricCommit(rubricText, salt), Number(process.env.DELIVERY_WINDOW ?? 3600), Number(process.env.RULING_WINDOW ?? 3600), { value: ethers.parseEther(process.env.ESCROW_AMOUNT ?? '0.1') })
   const receipt = await tx.wait()
   const jobId = receipt.logs.map((log: ethers.Log) => { try { return gavel().interface.parseLog(log)?.args.jobId } catch { return undefined } }).find(Boolean)
   if (!jobId) throw new Error('JobCreated event was not found in the confirmed transaction')

@@ -3,7 +3,7 @@ import 'dotenv/config'
 
 export const ABI = [
   'function nextJobId() view returns (uint256)',
-  'function getJob(uint256) view returns (address buyer,address seller,uint256 amount,bytes32 specHash,bytes32 rubricCommit,bytes32 artifactHash,string artifactURI,uint8 status,uint64 deliveryDeadline,uint64 rulingWindow,uint64 rulingDeadline)',
+  'function getJob(uint256) view returns ((address buyer,address seller,uint256 amount,bytes32 specHash,bytes32 rubricCommit,bytes32 artifactHash,string artifactURI,uint8 status,uint64 deliveryDeadline,uint64 rulingWindow,uint64 rulingDeadline))',
   'function createJob(bytes32,bytes32,uint64,uint64) payable returns (uint256)',
   'function accept(uint256)',
   'function deliver(uint256,bytes32,string)',

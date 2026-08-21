@@ -9,7 +9,7 @@ async function main(): Promise<void> {
   const seller = signerFromEnv('SELLER_KEY')
   const contract = gavel(seller)
   await (await contract.accept(jobId)).wait()
-  const artifact = ['Somno, quiet mornings start here', 'Somno makes rest feel within reach', 'Wake ready with Somno tonight', 'A calmer bedtime begins with Somno', 'Somno, a softer landing for sleep']
+  const artifact = ['Somno creates quieter mornings.', 'Somno makes rest feel within reach.', 'Wake ready with Somno tonight.', 'A calmer bedtime begins with Somno.', 'Somno brings a softer landing for sleep.']
   const artifactText = artifact.join('\n')
   const artifactHash = ethers.keccak256(ethers.toUtf8Bytes(artifactText))
   const tx = await contract.deliver(jobId, artifactHash, `file://runs/job-${jobId}/artifact.txt`)
