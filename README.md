@@ -8,7 +8,7 @@ Gavel is pay per result escrow for agent to agent work on X Layer. A buyer locks
 
 - `contracts/GavelEscrow.sol`, the Solidity 0.8.20 escrow with rubric precommit, signed rulings, timeout reclaim and receipt events
 - `test/gavel.test.ts`, six Hardhat tests covering approval, refund, tampering, judge authentication and both timeout paths
-- `judge/judge.ts`, an OpenAI-compatible evaluator with a deterministic local evaluator when no LLM key is configured
+- `judge/judge.ts`, a Groq evaluator using its OpenAI-compatible API with a deterministic local evaluator when no Groq key is configured
 - `agents/`, buyer and seller demo flows for a valid and invalid delivery
 - `mcp/server.ts`, stdio MCP tools for `create_job`, `get_job`, `deliver` and `request_ruling`
 - `dashboard/`, the React, Vite, Tailwind and wagmi landing page plus wallet-gated jobs interior
@@ -36,7 +36,7 @@ npx hardhat compile
 npx hardhat run scripts/deploy.ts --network xlayer_testnet
 ```
 
-Set `CONTRACT_ADDRESS` to the confirmed deployment and set `JUDGE_KEY`, `RELAYER_KEY`, `BUYER_KEY` and `SELLER_KEY`. The X Layer Testnet explorer is [OKLink](https://www.oklink.com/xlayer-test). The network uses chain id 195 and OKB as its gas token.
+Set `CONTRACT_ADDRESS` to the confirmed deployment and set `JUDGE_KEY`, `RELAYER_KEY`, `BUYER_KEY` and `SELLER_KEY`. Set `GROQ_API_KEY` for model-backed rulings. The default model is `openai/gpt-oss-120b` through `https://api.groq.com/openai/v1`. The X Layer Testnet explorer is [OKLink](https://www.oklink.com/xlayer-test). The network uses chain id 195 and OKB as its gas token.
 
 Run the demo sequence after deployment:
 

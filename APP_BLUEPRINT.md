@@ -280,8 +280,9 @@ JUDGE_KEY=
 RELAYER_KEY=
 BUYER_KEY=
 SELLER_KEY=
-LLM_API_KEY=
-LLM_BASE_URL=
+GROQ_API_KEY=
+GROQ_BASE_URL=https://api.groq.com/openai/v1
+GROQ_MODEL=openai/gpt-oss-120b
 ```
 
 Keys live in .env which is gitignored. Judge and relayer keys are hot wallets holding testnet OKB only. Before any Mainnet launch the keys move to a secrets manager and rulings above a threshold require human review.

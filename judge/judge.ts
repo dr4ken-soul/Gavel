@@ -34,13 +34,13 @@ function localVerdict(rubric: string[], artifact: string): Verdict {
 
 /** Calls an OpenAI-compatible evaluator with one retry on malformed JSON. */
 async function evaluate(rubric: string[], artifact: string): Promise<{ verdict: Verdict; transcript: string }> {
-  const apiKey = process.env.LLM_API_KEY
-  if (!apiKey) return { verdict: localVerdict(rubric, artifact), transcript: 'local evaluator used because LLM_API_KEY is not configured' }
-  const client = new OpenAI({ apiKey, baseURL: process.env.LLM_BASE_URL || undefined })
+  const apiKey = process.env.GROQ_API_KEY
+  if (!apiKey) return { verdict: localVerdict(rubric, artifact), transcript: 'local evaluator used because GROQ_API_KEY is not configured' }
+  const client = new OpenAI({ apiKey, baseURL: process.env.GROQ_BASE_URL ?? 'https://api.groq.com/openai/v1' })
   const user = `RUBRIC\n${rubric.map((item) => `- ${item}`).join('\n')}\n\nDELIVERABLE\n${artifact}`
   let raw = ''
   for (let attempt = 0; attempt < 2; attempt += 1) {
-    const response = await client.chat.completions.create({ model: process.env.LLM_MODEL ?? 'gpt-4o-mini', temperature: 0, response_format: { type: 'json_object' }, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: user }] })
+    const response = await client.chat.completions.create({ model: process.env.GROQ_MODEL ?? 'openai/gpt-oss-120b', temperature: 0, response_format: { type: 'json_object' }, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: user }] })
     raw = response.choices[0]?.message.content ?? ''
     try { return { verdict: parseVerdict(raw), transcript: `${systemPrompt}\n\n${user}\n\n${raw}` } } catch (error) { if (attempt === 1) throw error }
   }
